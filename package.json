@@ -1,0 +1,15 @@
+{
+  "name": "battle-sim",
+  "version": "1.0.0",
+  "description": "Simple battle sim",
+  "main": "main.js",
+  "dependencies": {
+    "toml": "^2.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nenad Lukic",
+  "license": "ISC"
+}
