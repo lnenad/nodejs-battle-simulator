@@ -1,0 +1,10 @@
+[armies]
+    [armies-1]
+    name="USA"
+    [[squads]]
+    type="Soldier"
+    [[squads]]
+    type="Soldier"
+    [[squads]]
+    type="Soldier"
+    [[squads]]

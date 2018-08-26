@@ -1,8 +1,14 @@
 const squad = require("./squad");
 
-const army = () => {
+const army = (name, numSquads) => {
+    let squads = [];
+    for (let x = 0; x < numSquads; x++) {
+        squads.push(squad())
+    }
+
     return {
-        squads: [squad(), squad()]
+        name,
+        squads
     }
 };
 

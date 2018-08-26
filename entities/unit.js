@@ -10,18 +10,17 @@ const unit = (health, recharge, experience) => {
     }
 };
 
-const canDoDamage = (state, attackStr) => {
-    return doDamage = () => {
-        const damage = 0.05 + state.experience / 100,
-            canAttack = attackStr();
-        console.log("Can attack: ", canAttack);
-
-        if (canAttack > 0.35) {
-            return damage;
-        } else {
-            return 0;
-        }
-    };
+const canDoDamage = (state, attackStr, attackDamage) => {
+    return {
+        getAttackStr: attackStr,
+        getAttackDamage: attackDamage
+    }
 };
 
-module.exports = {unit, canDoDamage};
+const canLoseHealth = (state, loseHealth) => {
+    return {
+        loseHealth
+    }
+};
+
+module.exports = {unit, canDoDamage, canLoseHealth};
