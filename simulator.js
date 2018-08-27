@@ -12,10 +12,13 @@ const battleLog = fs.openSync("battle-log.log", "w"),
         fs.writeSync(battleLog, message + "\n");
     });
 
-const simulate = (strategy, tickDuration, fastGame) => {
-    fastGame = true;
-    strategy = 0;
-    let armies = [army("USA", 3), army("China", 2), army("GLA", 4)];
+const simulate = (strategy, tickDuration, fastGame, armies) => {
+    armies = armies.map(item => {
+        console.log("SKVAD", item.squads);
+        return army(item.name, item.squads);
+    });
+
+    console.log(fullState(armies));
 
     let attackers, defenders;
 

@@ -2,7 +2,7 @@ const random = require("../utils").random;
 
 const unit = (health, recharge, experience) => {
     health = health || 100;
-    recharge = recharge || random(100, 105);
+    recharge = recharge || random(100, 2000);
     experience = experience || 0;
 
     return {

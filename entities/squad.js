@@ -1,6 +1,16 @@
 const soldier = require("./soldier");
 
-const squad = () => {
+const squad = (squadData) => {
+    let units = [];
+
+    squadData.forEach(unit => {
+        switch (unit.type.toLowerCase()) {
+            case "soldier":
+                units.push(soldier());
+                break;
+        }
+    });
+
     return {
         getAttackStr: function () {
             return this.units.map(unit => unit.getAttackStr()).reduce((sum, str) => {sum += str; return sum}, 0) / this.units.length
@@ -34,7 +44,7 @@ const squad = () => {
                 }
             }
         },
-        units: [soldier(), soldier()]
+        units: units
     }
 };
 
