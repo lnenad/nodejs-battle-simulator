@@ -1,4 +1,6 @@
-const soldier = require("./soldier");
+const gavg = require("../utils").gavg,
+    soldier = require("./soldier"),
+    vehicle = require("./vehicle");
 
 const squad = (squadData) => {
     let units = [];
@@ -8,38 +10,45 @@ const squad = (squadData) => {
             case "soldier":
                 units.push(soldier());
                 break;
+            case "vehicle":
+                const operators = unit.operators.map(unit => soldier());
+                units.push(vehicle(operators));
+                break;
         }
     });
 
+    units.push(vehicle([soldier(), soldier()]));
+
     return {
         getAttackStr: function () {
-            return this.units.map(unit => unit.getAttackStr()).reduce((sum, str) => {sum += str; return sum}, 0) / this.units.length
+            return gavg(this.units.map(unit => unit.getAttackStr()));
         },
         getAttackDamage: function () {
             return this.units.map(unit => unit.getAttackDamage()).reduce((sum, str) => {sum += str; return sum}, 0)
         },
         gainedExperience: function (amount) {
-            return this.units.forEach(unit => unit.experience = unit.experience + amount);
+            return this.units.forEach(unit => unit.setExperience(unit.getExperience() + amount));
         },
         getAvgExperience: function () {
-            return this.units.reduce((sum, unit) => {sum += unit.experience; return sum}, 0) / this.units.length
+            return this.units.reduce((sum, unit) => {sum += unit.getExperience(); return sum}, 0) / this.units.length
         },
         canAttack: function () {
-            return this.units.every(unit => unit.recharge >= 2000)
+            return this.units.every(unit => unit.canAttack())
         },
         resetRecharge: function (amount) {
-            return this.units.forEach(unit => unit.recharge = amount || 0);
+            return this.units.forEach(unit => unit.setRecharge(amount || 0));
         },
         increaseRecharge: function (amount) {
-            return this.units.forEach(unit => unit.recharge += amount);
+            return this.units.forEach(unit => unit.setRecharge(unit.getRecharge() + amount));
         },
         losesHealth: function (amount) {
             amount = amount / this.units.length;
             for (let x = 0; x < this.units.length; x++) {
-                const unit = this.units[x],
-                    dead = unit.loseHealth(amount) === null;
+                const unit = this.units[x];
 
-                if (dead) {
+                unit.loseHealth(amount);
+
+                if (unit.isDead()) {
                     this.units.splice(x, 1);
                 }
             }

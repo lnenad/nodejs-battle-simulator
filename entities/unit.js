@@ -1,26 +1,52 @@
 const random = require("../utils").random;
 
-const unit = (health, recharge, experience) => {
+const unit = (type, health, recharge, experience) => {
     health = health || 100;
     recharge = recharge || random(100, 2000);
     experience = experience || 0;
 
     return {
-        health, recharge, experience
+        health, recharge, experience, type,
+        getHealth: function () {
+            return this.health;
+        },
+        setRecharge: function (amount) {
+            return this.recharge = amount;
+        },
+        getRecharge: function () {
+            return this.recharge;
+        },
+        setExperience: function (amount) {
+            return this.experience = amount;
+        },
+        getExperience: function () {
+            return this.experience;
+        },
     }
 };
 
-const canDoDamage = (state, attackStr, attackDamage) => {
+const canDoDamage = (state, attackStr, attackDamage, canAttack) => {
     return {
         getAttackStr: attackStr,
-        getAttackDamage: attackDamage
+        getAttackDamage: attackDamage,
+        canAttack
     }
 };
 
-const canLoseHealth = (state, loseHealth) => {
+const canLoseHealth = (state, loseHealth, isDead) => {
     return {
-        loseHealth
+        loseHealth,
+        isDead
     }
 };
 
-module.exports = {unit, canDoDamage, canLoseHealth};
+const hasOperators = (state, operators) => {
+    return {
+        operators,
+        getOperatorsHealth: function () {
+            return this.operators.reduce((sum, unit) => {sum += unit.health; return sum}, 0);
+        }
+    }
+};
+
+module.exports = {unit, canDoDamage, canLoseHealth, hasOperators};
