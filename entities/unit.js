@@ -43,8 +43,8 @@ const canLoseHealth = (state, loseHealth, isDead) => {
 const hasOperators = (state, operators) => {
     return {
         operators,
-        getOperatorsHealth: function () {
-            return this.operators.reduce((sum, unit) => {sum += unit.health; return sum}, 0);
+        getOperatorsHealth: () => {
+            return operators.reduce((sum, unit) => {sum += unit.health; return sum}, 0);
         }
     }
 };

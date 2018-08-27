@@ -1,16 +1,9 @@
 const army = require("./entities/army"),
     random = require("./utils").random,
     gameLoop = require("./gameLoop"),
-    util = require('util'),
-    fs = require("fs");
-
-const battleLog = fs.openSync("battle-log.log", "w"),
-    fullState = (object) => {
-        return util.inspect(object, false, null)
-    },
-    log = ((message) => {
-        fs.writeSync(battleLog, message + "\n");
-    });
+    fs = require("fs"),
+    log = require("./utils").log,
+    fullState = require("./utils").fullState;
 
 const simulate = (strategy, tickDuration, fastGame, armies) => {
     armies = armies.map(item => {

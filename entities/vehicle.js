@@ -14,7 +14,7 @@ const vehicle = (operators) => {
         hasOperators(state, operators),
         canDoDamage(state,
             () => (0.5 * (1 + state.health/100) * gavg(operators.map(unit => unit.getAttackStr()))),
-            () => (0.05 + state.experience / 100),
+            () => (0.1 + operators.reduce((sum, unit) => {sum += unit.getExperience(); return sum}, 0) / 100),
             () => state.getRecharge() >= 1000
         ),
         canLoseHealth(state,

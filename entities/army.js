@@ -9,8 +9,8 @@ const army = (name, squadsData) => {
     return {
         name,
         squads,
-        increaseRecharge: function(amount) {
-            this.squads.forEach(squad => {
+        increaseRecharge: (amount) => {
+            squads.forEach(squad => {
                 squad.increaseRecharge(amount);
             })
         }

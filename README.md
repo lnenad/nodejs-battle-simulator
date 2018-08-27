@@ -50,30 +50,13 @@ name="China"
         type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
 
-[[armies]]
-name="GLA"
-
-    [[armies.squads]]
-        [[armies.squads.units]]
-        type="Soldier"
-        [[armies.squads.units]]
-        type="Soldier"
-    [[armies.squads]]
-        [[armies.squads.units]]
-        type="Soldier"
-        [[armies.squads.units]]
-        type="Soldier"
-    [[armies.squads]]
-        [[armies.squads.units]]
-        type="Soldier"
-        [[armies.squads.units]]
-        type="Soldier"
-    [[armies.squads]]
-        [[armies.squads.units]]
-        type="Soldier"
-        [[armies.squads.units]]
-        type="Soldier"
 ```
 
 ### Installing

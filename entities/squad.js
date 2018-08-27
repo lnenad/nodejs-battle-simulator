@@ -1,6 +1,8 @@
 const gavg = require("../utils").gavg,
     soldier = require("./soldier"),
-    vehicle = require("./vehicle");
+    vehicle = require("./vehicle"),
+    log = require("../utils").log,
+    fullState = require("../utils").fullState;
 
 const squad = (squadData) => {
     let units = [];
@@ -49,6 +51,7 @@ const squad = (squadData) => {
                 unit.loseHealth(amount);
 
                 if (unit.isDead()) {
+                    log("A unit disappears from the battlefield: " + fullState(this.units[x]));
                     this.units.splice(x, 1);
                 }
             }
