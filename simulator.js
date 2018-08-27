@@ -12,37 +12,38 @@ const battleLog = fs.openSync("battle-log.log", "w"),
         fs.writeSync(battleLog, message + "\n");
     });
 
-const simulate = (strategy, tickDuration) => {
+const simulate = (strategy, tickDuration, fastGame) => {
+    fastGame = true;
     strategy = 0;
     let armies = [army("USA", 3), army("China", 2), army("GLA", 4)];
 
+    let attackers, defenders;
 
-    gameLoop((interval) => {
+    gameLoop((stop) => {
         const victory = () => {
-            clearInterval(interval);
+            stop();
             console.log("Victory for army: " + fullState(armies));
         };
 
-        let attackTurn = 0, remainingEnemies = true, attackers, defenders;
+        if (armies.length === 1) {
+            return victory();
+        }
 
-        while (remainingEnemies) {
-            if (armies.length === 1) {
-                victory();
-                break;
-            }
+
+        let y = 0;
+
+        while (y < armies.length) {
+            let x = 0;
 
             const copy = armies.slice();
-            copy.splice(attackTurn, 1);
+            copy.splice(y, 1);
 
             const defenderArmyIndex = random(0, copy.length-1);
 
-            let x = 0;
-            attackers = armies[attackTurn];
+            attackers = armies[y];
             defenders = copy[defenderArmyIndex];
 
             while (x < attackers.squads.length) {
-                //console.log("attackers: ", attackers, "defenders:", defenders);
-
                 const attackersSquadAttackStr = attackers.squads[x].getAttackStr();
                 let defenderSquadIndex, defendersSquadAttackStr;
 
@@ -54,17 +55,21 @@ const simulate = (strategy, tickDuration) => {
                     defenderSquadIndex = random(0, defenders.squads.length - 1);
                     defendersSquadAttackStr = defenders.squads[defenderSquadIndex].getAttackStr();
                 }
-                if (attackersSquadAttackStr > defendersSquadAttackStr) {
+                if (attackersSquadAttackStr > defendersSquadAttackStr && attackers.squads[x].canAttack()) {
                     const damage = attackers.squads[x].getAttackDamage();
-                    console.log("Unit from army: ", attackers ,", with: " +
-                        attackers.squads[x].getAvgExperience()+ " experience has performed a " +
-                        "successful attack on army: ", defenders ," with attack str: " + attackersSquadAttackStr + " and did " + damage + "damage");
+                    console.log("Squad from army: ", attackers.name, ", with: " +
+                        attackers.squads[x].getAvgExperience() + " avg experience has performed a " +
+                        "successful attack on army: ", defenders.name, " with attack str: " + attackersSquadAttackStr + " and did " + damage + "damage");
 
                     attackers.squads[x].gainedExperience(1);
+                    attackers.squads[x].resetRecharge(0);
                     defenders.squads[defenderSquadIndex].losesHealth(damage);
+                } else {
+                    console.log("Unable to attack: ", attackers.name, defenders.name, attackersSquadAttackStr > defendersSquadAttackStr, attackers.squads[x].canAttack())
                 }
 
                 if (defenders.squads[defenderSquadIndex].units.length === 0) {
+                    log("A squad has disappeared from the battlefield: " + fullState(defenders));
                     defenders.squads.splice(defenderSquadIndex, 1);
                 }
 
@@ -80,9 +85,11 @@ const simulate = (strategy, tickDuration) => {
                 armies = copy;
             }
 
-            attackTurn = attackTurn === armies.length - 1 ? 0 : attackTurn + 1;
+            y++;
         }
-    });
+
+        armies.forEach(army => army.increaseRecharge((fastGame ? (tickDuration * 10) : tickDuration)))
+    }, tickDuration);
 
     log(fullState(armies));
 };

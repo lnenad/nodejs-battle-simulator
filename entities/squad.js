@@ -17,11 +17,11 @@ const squad = () => {
         canAttack: function () {
             return this.units.every(unit => unit.recharge >= 2000)
         },
-        resetRecharge: function () {
-            return this.updateRecharge(0);
+        resetRecharge: function (amount) {
+            return this.units.forEach(unit => unit.recharge = amount || 0);
         },
-        updateRecharge: function (amount) {
-            return this.units.forEach(unit => unit.recharge = amount);
+        increaseRecharge: function (amount) {
+            return this.units.forEach(unit => unit.recharge += amount);
         },
         losesHealth: function (amount) {
             amount = amount / this.units.length;

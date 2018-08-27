@@ -8,7 +8,12 @@ const army = (name, numSquads) => {
 
     return {
         name,
-        squads
+        squads,
+        increaseRecharge: function(amount) {
+            this.squads.forEach(squad => {
+                squad.increaseRecharge(amount);
+            })
+        }
     }
 };
 

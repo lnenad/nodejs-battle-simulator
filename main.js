@@ -1,3 +1,3 @@
 const simulator = require("./simulator");
 
-simulator.simulate();
+simulator.simulate(0, 25);
