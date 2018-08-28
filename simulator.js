@@ -7,24 +7,16 @@ const army = require("./entities/army"),
 
 const simulate = (strategy, tickDuration, fastGame, armies) => {
     armies = armies.map(item => {
-        console.log("SKVAD", item.squads);
         return army(item.name, item.squads);
     });
-
-    console.log(fullState(armies));
 
     let attackers, defenders;
 
     gameLoop((stop) => {
-        const victory = () => {
-            stop();
-            console.log("Victory for army: " + fullState(armies));
-        };
-
         if (armies.length === 1) {
-            return victory();
+            console.log("Victory for army: " + armies[0].name);
+            return stop();
         }
-
 
         let y = 0;
 
@@ -41,27 +33,18 @@ const simulate = (strategy, tickDuration, fastGame, armies) => {
 
             while (x < attackers.squads.length) {
                 const attackersSquadAttackStr = attackers.squads[x].getAttackStr();
-                let defenderSquadIndex, defendersSquadAttackStr;
 
-                if (defenders.squads.length === 0) {
-                    break;
-                }
+                const {defenderSquadIndex, defendersSquadAttackStr} = getDefenderSquadIndexAndAttackStr(strategy, defenders);
 
-                if (strategy === 0) {
-                    defenderSquadIndex = random(0, defenders.squads.length - 1);
-                    defendersSquadAttackStr = defenders.squads[defenderSquadIndex].getAttackStr();
-                }
                 if (attackersSquadAttackStr > defendersSquadAttackStr && attackers.squads[x].canAttack()) {
                     const damage = attackers.squads[x].getAttackDamage();
-                    console.log("Squad from army: ", attackers.name, ", with: " +
+                    log("Squad from army: " + attackers.name + ", with: " +
                         attackers.squads[x].getAvgExperience() + " avg experience has performed a " +
-                        "successful attack on army: ", defenders.name, " with attack str: " + attackersSquadAttackStr + " and did " + damage + "damage");
+                        "successful attack on army: ", defenders.name, " with attack str: " + attackersSquadAttackStr + " and did " + damage + " damage");
 
                     attackers.squads[x].gainedExperience(1);
                     attackers.squads[x].resetRecharge(0);
                     defenders.squads[defenderSquadIndex].losesHealth(damage);
-                } else {
-                    console.log("Unable to attack: ", attackers.name, defenders.name, attackersSquadAttackStr > defendersSquadAttackStr, attackers.squads[x].canAttack())
                 }
 
                 if (defenders.squads[defenderSquadIndex].units.length === 0) {
@@ -69,7 +52,10 @@ const simulate = (strategy, tickDuration, fastGame, armies) => {
                     defenders.squads.splice(defenderSquadIndex, 1);
                 }
 
-                //console.log("Squad: ", attackersSquadAttackStr);
+                if (defenders.squads.length === 0) {
+                    break;
+                }
+
                 x++;
             }
 
@@ -86,8 +72,30 @@ const simulate = (strategy, tickDuration, fastGame, armies) => {
 
         armies.forEach(army => army.increaseRecharge((fastGame ? (tickDuration * 10) : tickDuration)))
     }, tickDuration);
-
-    log(fullState(armies));
 };
+
+const getDefenderSquadIndexAndAttackStr = (strategy, defenders) => {
+    let defenderSquadIndex, defendersSquadAttackStr;
+
+    switch (strategy) {
+        case 0:
+            defenderSquadIndex = random(0, defenders.squads.length - 1);
+            defendersSquadAttackStr = defenders.squads[defenderSquadIndex].getAttackStr();
+            break;
+        case 1:
+            defenderSquadIndex = defenders.getWeakestSquadIndex();
+            defendersSquadAttackStr = defenders.squads[defenderSquadIndex].getAttackStr();
+            break;
+        case 2:
+            defenderSquadIndex = defenders.getStrongestSquadIndex();
+            defendersSquadAttackStr = defenders.squads[defenderSquadIndex].getAttackStr();
+            break;
+        default:
+            throw new Error("Invalid strategy value provided");
+    }
+
+    return {defenderSquadIndex, defendersSquadAttackStr};
+};
+
 
 module.exports = {simulate};

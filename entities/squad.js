@@ -1,11 +1,16 @@
 const gavg = require("../utils").gavg,
     soldier = require("./soldier"),
     vehicle = require("./vehicle"),
+    sumReducer = require("../utils").sumReducer,
     log = require("../utils").log,
     fullState = require("../utils").fullState;
 
 const squad = (squadData) => {
     let units = [];
+
+    if (squadData.length < 5 || squadData.length > 10) {
+        throw new Error("Invalid number of units in squad. The number of units must be between 5 and 10" + fullState(squadData));
+    }
 
     squadData.forEach(unit => {
         switch (unit.type.toLowerCase()) {
@@ -22,37 +27,37 @@ const squad = (squadData) => {
     units.push(vehicle([soldier(), soldier()]));
 
     return {
-        getAttackStr: function () {
-            return gavg(this.units.map(unit => unit.getAttackStr()));
+        getAttackStr: () => {
+            return gavg(units.map(unit => unit.getAttackStr()));
         },
-        getAttackDamage: function () {
-            return this.units.map(unit => unit.getAttackDamage()).reduce((sum, str) => {sum += str; return sum}, 0)
+        getAttackDamage: () => {
+            return units.map(unit => unit.getAttackDamage()).reduce(sumReducer, 0)
         },
-        gainedExperience: function (amount) {
-            return this.units.forEach(unit => unit.setExperience(unit.getExperience() + amount));
+        gainedExperience: (amount) => {
+            return units.forEach(unit => unit.setExperience(unit.getExperience() + amount));
         },
-        getAvgExperience: function () {
-            return this.units.reduce((sum, unit) => {sum += unit.getExperience(); return sum}, 0) / this.units.length
+        getAvgExperience: () => {
+            return units.map(unit => unit.getExperience()).reduce(sumReducer, 0) / units.length
         },
-        canAttack: function () {
-            return this.units.every(unit => unit.canAttack())
+        canAttack: () => {
+            return units.every(unit => unit.canAttack())
         },
-        resetRecharge: function (amount) {
-            return this.units.forEach(unit => unit.setRecharge(amount || 0));
+        resetRecharge: (amount) => {
+            return units.forEach(unit => unit.setRecharge(amount || 0));
         },
-        increaseRecharge: function (amount) {
-            return this.units.forEach(unit => unit.setRecharge(unit.getRecharge() + amount));
+        increaseRecharge: (amount) => {
+            return units.forEach(unit => unit.setRecharge(unit.getRecharge() + amount));
         },
-        losesHealth: function (amount) {
-            amount = amount / this.units.length;
-            for (let x = 0; x < this.units.length; x++) {
-                const unit = this.units[x];
+        losesHealth: (amount) => {
+            amount = amount / units.length;
+            for (let x = 0; x < units.length; x++) {
+                const unit = units[x];
 
                 unit.loseHealth(amount);
 
                 if (unit.isDead()) {
-                    log("A unit disappears from the battlefield: " + fullState(this.units[x]));
-                    this.units.splice(x, 1);
+                    log("A unit disappears from the battlefield: " + fullState(units[x]));
+                    units.splice(x, 1);
                 }
             }
         },

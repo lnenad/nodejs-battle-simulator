@@ -2,6 +2,7 @@ const random = require("../utils").random,
     gavg = require("../utils").gavg,
     unitMod = require("./unit"),
     unit = unitMod.unit,
+    sumReducer = require("../utils").sumReducer,
     canDoDamage = unitMod.canDoDamage,
     hasOperators = unitMod.hasOperators,
     canLoseHealth = unitMod.canLoseHealth;
@@ -14,7 +15,7 @@ const vehicle = (operators) => {
         hasOperators(state, operators),
         canDoDamage(state,
             () => (0.5 * (1 + state.health/100) * gavg(operators.map(unit => unit.getAttackStr()))),
-            () => (0.1 + operators.reduce((sum, unit) => {sum += unit.getExperience(); return sum}, 0) / 100),
+            () => (0.1 + operators.map(unit => unit.getExperience()).reduce(sumReducer, 0) / 100),
             () => state.getRecharge() >= 1000
         ),
         canLoseHealth(state,

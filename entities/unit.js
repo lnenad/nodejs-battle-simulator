@@ -1,4 +1,5 @@
-const random = require("../utils").random;
+const random = require("../utils").random,
+    sumReducer = require("../utils").sumReducer;
 
 const unit = (type, health, recharge, experience) => {
     health = health || 100;
@@ -44,7 +45,7 @@ const hasOperators = (state, operators) => {
     return {
         operators,
         getOperatorsHealth: () => {
-            return operators.reduce((sum, unit) => {sum += unit.health; return sum}, 0);
+            return operators.reduce(sumReducer, 0);
         }
     }
 };

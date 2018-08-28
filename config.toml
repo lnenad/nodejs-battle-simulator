@@ -1,6 +1,6 @@
 [main]
 tickDuration=25
-attackStrategy=0
+attackStrategy=2
 fastGame=true
 
 [[armies]]
@@ -11,6 +11,12 @@ name="USA"
         type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
     [[armies.squads]]
         [[armies.squads.units]]
         type="Vehicle"
@@ -22,7 +28,8 @@ name="USA"
             type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
-    [[armies.squads]]
+        [[armies.squads.units]]
+        type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
         [[armies.squads.units]]
@@ -31,11 +38,31 @@ name="USA"
             type="Soldier"
             [[armies.squads.units.operators]]
             type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
     [[armies.squads]]
         [[armies.squads.units]]
         type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
 
 [[armies]]
 name="China"
@@ -45,6 +72,29 @@ name="China"
         type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+    [[armies.squads]]
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
     [[armies.squads]]
         [[armies.squads.units]]
         type="Vehicle"
@@ -52,6 +102,37 @@ name="China"
             type="Soldier"
             [[armies.squads.units.operators]]
             type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+    [[armies.squads]]
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
 
@@ -63,17 +144,51 @@ name="GLA"
         type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
     [[armies.squads]]
         [[armies.squads.units]]
         type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
-    [[armies.squads]]
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
     [[armies.squads]]
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+    [[armies.squads]]
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
         [[armies.squads.units]]
         type="Soldier"
         [[armies.squads.units]]
@@ -91,7 +206,37 @@ name="GLA"
             type="Soldier"
             [[armies.squads.units.operators]]
             type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+        [[armies.squads.units]]
+        type="Vehicle"
+            [[armies.squads.units.operators]]
+            type="Soldier"
+            [[armies.squads.units.operators]]
+            type="Soldier"
     [[armies.squads]]
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
+        [[armies.squads.units]]
+        type="Soldier"
         [[armies.squads.units]]
         type="Vehicle"
             [[armies.squads.units.operators]]

@@ -3,6 +3,8 @@ const util = require('util'),
 
 const battleLog = fs.openSync("battle-log.log", "w");
 
+const sumReducer = (acc, val) => acc + val;
+
 const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -28,6 +30,7 @@ const log = (message) => {
 };
 
 module.exports = {
+    sumReducer,
     random,
     gavg,
     fullState,

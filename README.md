@@ -15,7 +15,7 @@ Configure the starting state of the armies inside the config.toml file.
 ```toml
 [main]
 tickDuration=25 # Game loop tick duration in milliseconds
-attackStrategy=0 # Army attack strategy
+attackStrategy=0 # Army attack strategy 0 - Random | 1 - Weakest | 2 - Strongest
 fastGame=true # Make the units recharge 10 times faster for a quicker simulation
 
 [[armies]]
